@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class CinemaHall(models.Model):
@@ -67,7 +68,8 @@ class Order(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.created_at)
+        local_time = timezone.localtime(self.created_at)
+        return local_time.strftime("%d %b %Y %H:%M:%S")
 
     class Meta:
         ordering = ["-created_at"]
@@ -84,8 +86,8 @@ class Ticket(models.Model):
 
     def clean(self):
         for ticket_attr_value, ticket_attr_name, cinema_hall_attr_name in [
-            (self.row, "row", "count_rows"),
-            (self.seat, "seat", "count_seats_in_row"),
+            (self.row, "row", "rows"),
+            (self.seat, "seat", "seats_in_row"),
         ]:
             count_attrs = getattr(self.movie_session.cinema_hall,
                                   cinema_hall_attr_name)

@@ -74,7 +74,7 @@ class MovieSessionListSerializer(serializers.ModelSerializer):
     show_time = serializers.DateTimeField(
         source="show_time", read_only=True
     )
-    movie_title = serializers.CharField(source="movie_title", read_only=True)
+    movie_title = serializers.CharField(source="movie.title", read_only=True)
     cinema_hall_name = serializers.CharField(
         source="cinema_hall.name", read_only=True)
     cinema_hall_capacity = serializers.IntegerField(
