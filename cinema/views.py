@@ -62,7 +62,7 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
             return MovieSessionListSerializer
         elif self.action == "retrieve":
             return MovieSessionRetrieveSerializer
-        return MovieSerializer
+        return MovieSessionSerializer
 
     def get_queryset(self):
         queryset = self.queryset
